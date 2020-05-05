@@ -1,27 +1,52 @@
 <template>
   <div class="AddAddress">
-    <van-field v-model="value" placeholder="收货人" />
-    <van-field v-model="value" placeholder="手机号码" />
-
-    <van-field v-model="value" placeholder="所在地区" />
-
-    <van-field v-model="value" type="textarea" placeholder="详细地址" />
-
-    <van-field v-model="value" placeholder="设为默认地址" />
+    <!-- <van-popup show="{{ show }}" bind:close="onClose">内容</van-popup> -->
+    <!-- <van-area area-list="{{ areaList }}" value="110101" /> -->
+    <van-address-edit
+      :area-list="areaList"
+      show-delete
+      show-set-default
+      show-search-result
+      :search-result="searchResult"
+      :area-columns-placeholder="['请选择', '请选择', '请选择']"
+      @save="onSave"
+      @delete="onDelete"
+      @change-detail="onChangeDetail"
+    />
   </div>
 </template>
 <script>
+import { Toast } from "vant";
+
+import cityList from "../area.js";
 export default {
   name: "AddAddress",
-  created() {
-    console.log(1);
-  },
   data() {
     return {
-      value: ""
+      areaList: cityList,
+      searchResult: []
     };
   },
-  methods: {}
+  methods: {
+    onSave() {
+      Toast("save");
+    },
+    onDelete() {
+      Toast("delete");
+    },
+    onChangeDetail(val) {
+      if (val) {
+        this.searchResult = [
+          {
+            name: "黄龙万科中心",
+            address: "杭州市西湖区"
+          }
+        ];
+      } else {
+        this.searchResult = [];
+      }
+    }
+  }
 };
 </script>
 <style lang="scss">
