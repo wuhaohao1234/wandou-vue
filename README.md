@@ -1,2 +1,3 @@
 # wandou-vue
-测试题
+
+npm run start启动项目
